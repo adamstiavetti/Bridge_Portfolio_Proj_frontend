@@ -12,8 +12,8 @@ describe('Project List', () => {
 
     const doRender = async () => {
         await waitFor(() => {
-            render(<ProjectList/>)
-        })
+            render(<ProjectList projects={[]} onEdit={() => {}}/>)
+        });
     }
 
     it('should display project list header', async () => {

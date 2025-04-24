@@ -4,7 +4,13 @@ import {Project} from "../types/Project.ts";
 import ProjectCard from "./project-card.tsx";
 
 
-const ProjectList = () => {
+type Props = {
+    projects: Project[];
+    onEdit: (project: Project) => void
+}
+
+
+const ProjectList = ({onEdit}: Props) => {
     const[projects, setProjects] = useState<Project[]>([])
 
     useEffect(() => {
@@ -13,16 +19,18 @@ const ProjectList = () => {
 
     return (
         <>
-            <div>
-                <h1>Project List</h1>
-            </div>
-            <div>
-                {projects.map((project) => (
-                    <ProjectCard key={project.id} project={project}/>
+            <h1>Project List</h1>
+            <div className={projectListStyle}>
+                {projects.map((project
+            ) => (
+                    <ProjectCard key={project.id} project={project} onEdit={() => onEdit(project)}/>
                 ))}
             </div>
         </>
     )
 };
+
+const projectListStyle = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6";
+
 
 export default ProjectList;

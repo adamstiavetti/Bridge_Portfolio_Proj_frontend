@@ -47,4 +47,22 @@ export function fetchProjects(): Promise<Project[]> {
     return Promise.resolve(mockProjects);
 }
 
-// export function handleEdit
+export function fetchProjectById(id: number): Promise<Project> {
+    return fetch(`/api/projects/${id}`).then((r) => r.json());
+}
+
+export function createProject(project: Project): Promise<Project> {
+    return fetch("/api/projects/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(project),
+    }).then((r) => r.json())
+}
+
+export function updateProject(project: Project): Promise<Project> {
+    return fetch(`/api/projects/${project.id}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(project)
+    }).then((r) => r.json())
+}

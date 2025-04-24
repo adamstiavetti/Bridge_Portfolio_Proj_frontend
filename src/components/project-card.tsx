@@ -1,7 +1,12 @@
 
 import {Project} from "../types/Project.ts";
 
-const ProjectCard = ({ project }: { project: Project}) => {
+type Props = {
+    project: Project;
+    onEdit: () => void;
+}
+
+const ProjectCard = ({ project, onEdit}: Props) => {
     return (
         <div className={cardStyle} >
             <h1 className={cardTitleStyle} role={'heading'}>{project.title}</h1>
@@ -9,7 +14,7 @@ const ProjectCard = ({ project }: { project: Project}) => {
             <p className={cardDetailStyle}>Rating: {project.rating}</p>
             <p className={cardDetailStyle}>Date Created: {project.createdAt}</p>
             <p className={cardDetailStyle}>Build Days: {project.durationDays}</p>
-            <button>Edit</button>
+            <button onClick={onEdit}>Edit</button>
         </div>
     );
 };
