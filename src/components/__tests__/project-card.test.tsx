@@ -6,7 +6,7 @@ import {userEvent} from "@testing-library/user-event";
 
 describe('Project Card', () => {
     it('should display a project with attributes and a button for edit', () => {
-        const project:Project = {
+        const mockProject:Project = {
             id: 1,
             title: 'Website1',
             description: 'This is a website',
@@ -14,14 +14,14 @@ describe('Project Card', () => {
             createdAt: '2023-09-05T12:00:00Z',
             durationDays: 14
         }
-        render(<ProjectCard project={project} onEdit={() => {}}/>)
+        render(<ProjectCard project={mockProject} onEdit={() => {}} onDelete={() => {}}/>)
 
-        expect(screen.getByRole('heading', {name: project.title})).toBeVisible();
+        expect(screen.getByRole('heading', {name: mockProject.title})).toBeVisible();
         expect(screen.getByRole('button', {name: /edit/i})).toBeInTheDocument();
     });
 
     it('should render a delete button and delete a project when button is clicked ', async () => {
-        const project:Project = {
+        const mockProject:Project = {
             id: 1,
             title: 'Delete Project',
             description: 'Desc',
@@ -32,7 +32,7 @@ describe('Project Card', () => {
         const onEdit = vi.fn();
         const onDelete = vi.fn();
 
-        render(<ProjectCard project={project} onEdit={onEdit} onDelete={onDelete}/>)
+        render(<ProjectCard project={mockProject} onEdit={onEdit} onDelete={onDelete}/>)
 
         const deleteBtn = screen.getByRole("button", { name: /delete/i });
         expect(deleteBtn).toBeInTheDocument();

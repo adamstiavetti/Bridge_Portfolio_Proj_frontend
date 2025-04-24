@@ -7,10 +7,11 @@ import ProjectCard from "./project-card.tsx";
 type Props = {
     projects: Project[];
     onEdit: (project: Project) => void
+    onDelete: (id: number) => void
 }
 
 
-const ProjectList = ({onEdit}: Props) => {
+const ProjectList = ({onEdit, onDelete}: Props) => {
     const[projects, setProjects] = useState<Project[]>([])
 
     useEffect(() => {
@@ -23,7 +24,7 @@ const ProjectList = ({onEdit}: Props) => {
             <div className={projectListStyle}>
                 {projects.map((project
             ) => (
-                    <ProjectCard key={project.id} project={project} onEdit={() => onEdit(project)}/>
+                    <ProjectCard key={project.id} project={project} onEdit={() => onEdit(project)} onDelete={() => onDelete(project.id)}/>
                 ))}
             </div>
         </>

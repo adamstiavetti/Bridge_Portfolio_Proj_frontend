@@ -3,11 +3,6 @@ import {Project} from "../types/Project.ts";
 import {useNavigate, useParams} from "react-router-dom";
 import {createProject, fetchProjectById, updateProject} from "./project-service.ts";
 
-// type Props  = {
-//     project: Project | null;
-//     onSubmit: (p: Project) => void
-// }
-
 const ProjectForm = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -15,7 +10,6 @@ const ProjectForm = () => {
     const isEditing = Boolean(id);
 
     const [formData, setFormData] = useState<Project>({
-        id: 0,
         title: "",
         description: "",
         rating: 0,
@@ -25,10 +19,8 @@ const ProjectForm = () => {
 
     useEffect(() => {
         if (isEditing && id) {
-            fetchProjectById(Number(id)).then((project) => {
-                setFormData(project)
-            })
-        }
+            fetchProjectById(Number(id)).then(setFormData)
+            }
     }, [id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,10 +35,13 @@ const ProjectForm = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        const {...rest } = formData;
+
         if (isEditing) {
-            await updateProject(formData);
+
+           await updateProject(formData);
         }else {
-            await createProject(formData);
+            await createProject(rest);
         }
         navigate("/");
     }
